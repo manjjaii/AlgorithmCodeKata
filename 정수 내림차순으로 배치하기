@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void bubbleSort(vector<int>& arr) {// 정수형 벡터를 참조로 받아와서 원본 데이터를 정렬
+    //반환값이 void인 이유는 벡터 자체를 직접 수정하기 때문이다
+    int n = arr.size();//벡터의 크기를 n에 저장한다.
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (arr[j] < arr[j + 1]) { // 내림차순이기 때문에 더 큰거를 앞으로 보낸다
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+
+
+long long solution(long long n){//정수 n을 입력받아, 자릿수를 내림차순 정렬한 long long으로 변환
+
+vector<int> digits;//자릿수를 digits로 선언
+
+    while (n>0){//n이 자연수이므로
+        digits.push_back(n%10);//n의 1의 자릿수를 벡터에 추가
+        n/=10;//n을 10으로 나눠서 다음 자릿수로 이동한다 기존 1의 자릿수는 나머지이므로 사라짐
+    }
+
+    bubbleSort(digits);//버블 정렬(내림차순)
+
+    long long result=0;//결과값을 담을 변수 초기화
+    for(int digit:digits){//정렬된 각 자릿수를 하나씩 digits 벡터에서 digit이라는 이름으로 꺼낸다.
+        result=result*10+digit;//숫자를 왼쪽으로 한자리 밀고 새로운 자릿수를 붙인다.
+    }
+    return result;
+}
