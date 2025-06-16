@@ -1,0 +1,28 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int num) {
+    int answer = 0;
+    long number=num;
+
+    while(number!=1){
+
+    if(number%2==0){
+        number/=2;}
+
+    else{
+        number=number*3+1;
+    }
+      answer++;
+
+    if(answer>=500){
+        return -1;
+    }
+}
+    return answer;
+    }
+
+
+//여기서 맹점은 int로는 표현할 수 있는 수가 -21억~21억 이렇게 있는데 그걸 넘어가 버릴 수가 있어서 중간에 num을 long타입을 써서 8byte로 바꿔준다
