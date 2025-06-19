@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> absolutes, vector<bool> signs) {
+    int answer = 0;//실제 합을 둘 answer를 선언 후 0으로 초기화한다.
+    for (int i=0;i<absolutes.size();++i){
+        answer+=signs[i] ? absolutes[i]:-absolutes[i];//answer에 signs[i]가 참이면 양수값, 거짓이면 음수값을 더한다.
+        //삼항 연산자-> 조건?참:거짓 
+
+    }
+
+    return answer;
+}
