@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string phone_number) {
+    
+    int len = phone_number.length();//전화번호 길이를 구한다. 
+    
+    string answer(len-4,'*');//문자열에서 4의 길이만큼을 뺀 *로 채워진 문자열을 만든다.
+
+    answer += phone_number.substr(len-4);//전화번호에서 끝4자리를 가져와서 붙인다.
+
+    
+    return answer;
+}
