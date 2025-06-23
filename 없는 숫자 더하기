@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> numbers) {
+    int sumdigits=45;
+    int sumnumbers=0;
+
+    for(int num:numbers)
+    {
+        sumnumbers+=num;
+    }
+    int answer=sumdigits-sumnumbers;
+
+    return answer;
+}
