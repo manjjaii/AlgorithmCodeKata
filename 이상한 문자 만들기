@@ -1,0 +1,30 @@
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    int idx = 0;  // 단어 내에서의 인덱스
+
+    for (char ch : s) 
+    {
+        if (ch == ' ') 
+        {
+            answer += ch;
+            idx = 0;  // 단어가 끝났으니 인덱스 초기화
+        } else 
+        {
+            if (idx % 2 == 0) 
+            {
+                answer += toupper(ch);  // 짝수: 대문자
+            } else 
+            {
+                answer += tolower(ch);  // 홀수: 소문자
+            }
+            idx++;
+        }
+    }
+
+    return answer;
+}
