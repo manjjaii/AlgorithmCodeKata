@@ -1,0 +1,39 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string s) 
+    {
+    vector<string> numbers = 
+    {
+        "zero", "one", "two", "three", "four",
+        "five", "six", "seven", "eight", "nine"
+    };
+
+    string result = "";
+    string temp = "";
+
+    for (char c : s) 
+    {
+        if (isdigit(c)) 
+        {
+            result += c; // 숫자는 바로 결과에 추가
+        } else 
+        {
+            temp += c; // 영단어는 누적해서 확인
+            for (int i = 0; i < numbers.size(); i++) 
+            {
+                if (temp == numbers[i]) 
+                {
+                    result += to_string(i); // 매칭되면 숫자로 변환해서 추가
+                    temp = ""; // 임시 문자열 초기화
+                    break;
+                }
+            }
+        }
+    }
+
+    return stoi(result);
+}
+
