@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+#include <algorithm> // sort 함수를 위해 필요
+
+using namespace std;
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+
+    for (const vector<int>& command : commands) {
+        int i = command[0];
+        int j = command[1];
+        int k = command[2];
+
+        // 부분 배열 자르기 (0-based 인덱스를 사용하므로 -1 해줌)
+        vector<int> temp(array.begin() + i - 1, array.begin() + j);
+
+        // 정렬
+        sort(temp.begin(), temp.end());
+
+        // k번째 숫자 추가 (0-based 인덱스로 k-1)
+        answer.push_back(temp[k - 1]);
+    }
+
+    return answer;
+}
