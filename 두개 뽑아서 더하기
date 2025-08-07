@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <algorithm> // sort, unique
+
+using namespace std;
+
+vector<int> solution(vector<int> numbers) {
+    vector<int> answer;
+
+    // 모든 두 수의 조합을 더해서 answer에 넣기
+    for (int i = 0; i < numbers.size(); ++i) {
+        for (int j = i + 1; j < numbers.size(); ++j) {
+            int sum = numbers[i] + numbers[j];
+            answer.push_back(sum);
+        }
+    }
+
+    // 중복 제거를 위해 정렬 후 unique 처리
+    sort(answer.begin(), answer.end());
+    answer.erase(unique(answer.begin(), answer.end()), answer.end());
+
+    return answer;
+}
