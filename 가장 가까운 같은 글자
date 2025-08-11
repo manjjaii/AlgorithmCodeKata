@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+vector<int> solution(string s) {
+    // 결과를 저장할 벡터
+    vector<int> answer;
+
+    // 각 문자가 마지막으로 등장한 위치(인덱스)를 저장할 맵
+    // char: 문자, int: 마지막 인덱스
+    map<char, int> last_seen_index;
+
+    // 문자열의 각 문자를 순서대로 탐색합니다.
+    for (int i = 0; i < s.length(); ++i) {
+        char currentChar = s[i];
+
+        // 현재 문자가 맵에 있는지 확인합니다.
+        if (last_seen_index.find(currentChar) == last_seen_index.end()) {
+            // 맵에 없는 경우: 이전에 등장한 적이 없습니다.
+            // -1을 결과에 추가하고, 현재 인덱스를 맵에 저장합니다.
+            answer.push_back(-1);
+            last_seen_index[currentChar] = i;
+        } else {
+            // 맵에 있는 경우: 이전에 등장한 적이 있습니다.
+            // 현재 인덱스에서 마지막으로 등장한 인덱스를 빼서 거리를 계산합니다.
+            int distance = i - last_seen_index[currentChar];
+            answer.push_back(distance);
+
+            // 마지막으로 등장한 인덱스를 현재 인덱스로 업데이트합니다.
+            last_seen_index[currentChar] = i;
+        }
+    }
+
+    return answer;
+}
