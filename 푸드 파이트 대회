@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(vector<int> food) {
+    string answer = "";
+    string left = "";
+
+    // 1번 음식부터 마지막 음식까지
+    for (int i = 1; i < food.size(); i++) {
+        int cnt = food[i] / 2; // 양쪽 선수에게 나눠줄 수 있는 개수
+        left += string(cnt, '0' + i); // i번 음식을 cnt만큼 붙임
+    }
+
+    // 최종 문자열 = 왼쪽 + 물(0) + 오른쪽(왼쪽의 reverse)
+    answer = left + "0";
+    reverse(left.begin(), left.end());
+    answer += left;
+
+    return answer;
+}
