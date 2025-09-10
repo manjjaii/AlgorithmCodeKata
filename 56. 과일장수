@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int solution(int k, int m, vector<int> score) {
+    // 점수 내림차순 정렬
+    sort(score.begin(), score.end(), greater<int>());
+
+    long long answer = 0; // 결과가 커질 수 있으니 long long
+    // m개씩 그룹핑
+    for (int i = m - 1; i < score.size(); i += m) {
+        answer += 1LL * score[i] * m;
+    }
+    return (int)answer;
+}
+
+int main() {
+    int k = 3, m = 4;
+    vector<int> score = {1, 2, 3, 1, 2, 3, 1};
+
+    cout << solution(k, m, score) << endl; // 8 출력
+    return 0;
+}
