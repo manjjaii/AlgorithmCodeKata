@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// 약수 개수 구하기
+int countDivisors(int x) {
+    int cnt = 0;
+    for (int i = 1; i * i <= x; i++) {
+        if (x % i == 0) {
+            cnt++;
+            if (i != x / i) cnt++; // 제곱근이 아니면 쌍으로 추가
+        }
+    }
+    return cnt;
+}
+
+int solution(int number, int limit, int power) {
+    int total = 0;
+    for (int i = 1; i <= number; i++) {
+        int divCount = countDivisors(i);
+        if (divCount > limit) divCount = power;
+        total += divCount;
+    }
+    return total;
+}
+
+int main() {
+    cout << solution(5, 3, 2) << "\n";  // 10
+    cout << solution(10, 3, 2) << "\n"; // 21
+    return 0;
+}
