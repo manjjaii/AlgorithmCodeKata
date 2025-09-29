@@ -1,0 +1,31 @@
+#include <string>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+int getRank(int matchCount) {
+    // 맞춘 개수 → 순위 변환
+    if (matchCount >= 2) return 7 - matchCount;
+    return 6;
+}
+
+vector<int> solution(vector<int> lottos, vector<int> win_nums) {
+    int zeroCount = 0;
+    int matchCount = 0;
+
+    // 당첨 번호 집합
+    unordered_set<int> winSet(win_nums.begin(), win_nums.end());
+
+    for (int num : lottos) {
+        if (num == 0) {
+            zeroCount++;
+        } else if (winSet.count(num)) {
+            matchCount++;
+        }
+    }
+
+    int best = getRank(matchCount + zeroCount);
+    int worst = getRank(matchCount);
+
+    return {best, worst};
+}
