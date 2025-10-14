@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(vector<string> babbling) {
+    vector<string> canSay = {"aya", "ye", "woo", "ma"};
+    int answer = 0;
+
+    for (string word : babbling) {
+        string prev = "";  // 직전 발음
+        bool valid = true; // 유효한 단어인지
+
+        while (!word.empty()) {
+            bool matched = false;
+            for (string say : canSay) {
+                if (word.rfind(say, 0) == 0) { // word가 say로 시작하면
+                    if (say == prev) { // 같은 발음이 연속된 경우
+                        valid = false;
+                        break;
+                    }
+                    prev = say;
+                    word = word.substr(say.size()); // 해당 발음 제거
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) { // 어떤 발음도 매칭되지 않으면
+                valid = false;
+                break;
+            }
+        }
+
+        if (valid) answer++;
+    }
+
+    return answer;
+}
