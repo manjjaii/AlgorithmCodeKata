@@ -1,0 +1,40 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    // 1. 여벌 있는데 도난당한 학생 정리
+    vector<int> realLost;
+    vector<int> realReserve;
+
+    for (int l : lost) {
+        // reserve에도 있는 학생은 자기꺼만 입으므로 제거
+        if (find(reserve.begin(), reserve.end(), l) == reserve.end()) {
+            realLost.push_back(l);
+        } else {
+            reserve.erase(find(reserve.begin(), reserve.end(), l));
+        }
+    }
+    realReserve = reserve;
+
+    // 2. 번호 순서대로 정렬
+    sort(realLost.begin(), realLost.end());
+    sort(realReserve.begin(), realReserve.end());
+
+    // 3. 체육복 빌리기 시도
+    for (int l : realLost) {
+        if (find(realReserve.begin(), realReserve.end(), l - 1) != realReserve.end()) {
+            // 앞번호 학생에게 빌림
+            realReserve.erase(find(realReserve.begin(), realReserve.end(), l - 1));
+        } else if (find(realReserve.begin(), realReserve.end(), l + 1) != realReserve.end()) {
+            // 뒷번호 학생에게 빌림
+            realReserve.erase(find(realReserve.begin(), realReserve.end(), l + 1));
+        } else {
+            // 빌리지 못한 경우 수업 불가
+            n--;
+        }
+    }
+
+    return n;
+}
