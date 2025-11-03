@@ -1,0 +1,41 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<string> keymap, vector<string> targets) {
+    unordered_map<char, int> minPress; // 각 문자별 최소 누름 횟수 저장
+
+    // keymap을 이용해 문자별 최소 누름 횟수 계산
+    for (const string& key : keymap) {
+        for (int i = 0; i < key.size(); i++) {
+            char c = key[i];
+            int pressCount = i + 1; // i번째 문자면 i+1번 눌러야 함
+            if (minPress.find(c) == minPress.end())
+                minPress[c] = pressCount;
+            else
+                minPress[c] = min(minPress[c], pressCount);
+        }
+    }
+
+    vector<int> answer;
+
+    // 각 target 문자열을 만들기 위한 최소 누름 횟수 계산
+    for (const string& target : targets) {
+        int totalPress = 0;
+        bool possible = true;
+
+        for (char c : target) {
+            if (minPress.find(c) == minPress.end()) {
+                possible = false; // 만들 수 없는 문자
+                break;
+            }
+            totalPress += minPress[c];
+        }
+
+        answer.push_back(possible ? totalPress : -1);
+    }
+
+    return answer;
+}
