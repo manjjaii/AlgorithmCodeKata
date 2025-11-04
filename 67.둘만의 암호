@@ -1,0 +1,35 @@
+#include <string>
+#include <vector>
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+
+string solution(string s, string skip, int index) {
+    unordered_set<char> skipSet(skip.begin(), skip.end());
+    string result = "";
+
+    for (char c : s) {
+        char cur = c;
+        int move = 0;
+
+        while (move < index) {
+            cur++;
+            if (cur > 'z') cur = 'a'; // 알파벳 순환
+            if (skipSet.find(cur) == skipSet.end()) {
+                move++; // skip에 없을 때만 이동 카운트 증가
+            }
+        }
+
+        result += cur;
+    }
+
+    return result;
+}
+
+// 테스트용 main
+int main() {
+    string s = "aukks";
+    string skip = "wbqd";
+    int index = 5;
+    cout << solution(s, skip, index) << endl; // 출력: happy
+}
