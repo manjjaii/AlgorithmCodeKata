@@ -1,0 +1,46 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+string solution(vector<string> survey, vector<int> choices) {
+    // 성격 유형 점수 테이블
+    unordered_map<char, int> score;
+    
+    // 선택지에 따른 점수 계산용
+    // (인덱스: 선택지 번호)
+    vector<int> points = {0, 3, 2, 1, 0, 1, 2, 3};
+
+    // 모든 질문 처리
+    for (int i = 0; i < survey.size(); i++) {
+        string s = survey[i];
+        int choice = choices[i];
+
+        char disagree = s[0]; // 비동의 선택 시 점수
+        char agree = s[1];    // 동의 선택 시 점수
+
+        if (choice > 4) { // 동의
+            score[agree] += points[choice];
+        } else if (choice < 4) { // 비동의
+            score[disagree] += points[choice];
+        }
+        // choice == 4 는 0점 → 아무 처리 없음
+    }
+
+    // 4개 지표 비교
+    string result = "";
+
+    // 지표 1: R vs T
+    result += (score['R'] >= score['T'] ? 'R' : 'T');
+
+    // 지표 2: C vs F
+    result += (score['C'] >= score['F'] ? 'C' : 'F');
+
+    // 지표 3: J vs M
+    result += (score['J'] >= score['M'] ? 'J' : 'M');
+
+    // 지표 4: A vs N
+    result += (score['A'] >= score['N'] ? 'A' : 'N');
+
+    return result;
+}
